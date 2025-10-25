@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATL-KICK-SCOUT - Rate Your Atlanta Kicks 1-10</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6EGQPLGVL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R6EGQPLGVL');
+    </script>
+    <link rel="icon" type="image/x-icon" href="/Atl-Kick-Scout/favicon.ico">
+    <style>
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(to bottom, #FF6B35, #F7931E); color: #333; margin: 0; padding: 20px; text-align: center; }
+        h1 { color: #fff; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #fff; font-size: 1.2em; margin-bottom: 30px; }
+        .upload-area { border: 3px dashed #fff; border-radius: 10px; padding: 40px; margin: 20px auto; max-width: 400px; background: rgba(255,255,255,0.1); }
+        input[type="file"] { display: none; }
+        .upload-btn { background: #fff; color: #FF6B35; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        .preview { max-width: 300px; max-height: 300px; margin: 20px auto; border-radius: 10px; display: none; }
+        select { background: #fff; padding: 10px; border-radius: 5px; font-size: 1em; margin: 10px; }
+        .rate-btn { background: #F7931E; color: #fff; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2em; margin: 20px; }
+        .result { display: none; margin: 20px; padding: 20px; background: rgba(255,255,255,0.9); border-radius: 10px; }
+        .rating { font-size: 4em; color: #FF6B35; font-weight: bold; }
+        .feedback { font-size: 1.1em; margin: 10px 0; }
+        .share-btn { background: #E4405F; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px; }
+        footer { margin-top: 40px; color: #fff; font-size: 0.9em; }
+        footer a { color: #E4405F; text-decoration: none; }
+        .premium-btn { background: #FFD700; color: #333; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin: 10px; }
+        .premium-section { display: none; margin: 20px; padding: 20px; background: rgba(255,255,255,0.9); border-radius: 10px; }
+        .gem { margin: 10px; padding: 10px; border-bottom: 1px solid #ddd; }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; }
+        .shoe-card { background: rgba(255,255,255,0.9); margin: 10px; padding: 10px; border-radius: 5px; width: 200px; }
+        .shoe-card img { max-width: 100%; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>ATL-KICK-SCOUT</h1>
+    <p class="subtitle">Snap your shoes, pick your ATL zone, and get a 1-10 rating. Peach State drip! 🍑</p>
+    
+    <div class="upload-area">
+        <input type="file" id="shoeUpload" accept="image/*">
+        <button class="upload-btn" onclick="document.getElementById('shoeUpload').click()">Upload Shoe Pic</button>
+        <img id="preview" class="preview" alt="Shoe Preview">
+    </div>
+    
+    <select id="neighborhood">
+        <option value="">Select Your ATL Zone</option>
+        <option value="zone1">Zone 1 (Bankhead)</option>
+        <option value="zone2">Zone 2 (Midtown)</option>
+        <option value="zone3">Zone 3 (Buckhead)</option>
+        <option value="zone4">Zone 4 (Decatur)</option>
+        <option value="zone5">Zone 5 (Hapeville)</option>
+    </select>
+    
+    <br>
+    <button class="rate-btn" onclick="rateShoes()" disabled id="rateBtn">Scout My Kicks!</button>
+    
+    <div id="result" class="result">
+        <div class="rating" id="rating"></div>
+        <div class="feedback" id="feedback"></div>
+        <a href="#" class="share-btn" id="shareBtn" onclick="shareToIG()">Share to IG: My ATL Rating!</a>
+    </div>
+    
+    <div id="gallery" class="gallery">
+        <div class="shoe-card">
+            <img src="https://via.placeholder.com/150" alt="Sample Shoe">
+            <p>Zone: Zone 1</p>
+            <p>Avg Rating: N/A</p>
+            <input type="number" min="1" max="10" placeholder="Rate 1-10">
+            <button onclick="alert('Rated!')">Rate</button>
+            <input type="text" placeholder="Outfit rec or price compare">
+        </div>
+        <!-- Add more as submissions come in -->
+    </div>
+    
+    <footer>
+        <p>Built for ATL sneakerheads | Premium unlocks: Local gems & ad-free | <a href="https://instagram.com/mrcoppafield">@mrcoppafield</a> | © 2025 mrcoppafield</p>
+    </footer>
+
+    <div style="margin: 20px;">
+        <button class="premium-btn" onclick="unlockPremium()">Unlock Premium ($4.99/mo)</button>
+        <button class="upload-btn" onclick="window.location='https://docs.google.com/forms/d/e/1FAIpQLSeMaG3f646Sz4Wex0OuuyirYUWLp26g3kVqJJ8RqGGvSKwTvw/viewform?usp=sharing&ouid=113289623202042753356';">Submit Shoe to Gallery</button>
+    </div>
+
+    <div id="premium" class="premium-section">
+        <h2>2025 Hidden Gems & Fashion Tips</h2>
+        <div class="gem">
+            <h3>Sneaker Shops</h3>
+            <p>Wish (Little Five Points): Yeezys $50-100. Heet ATL: Customs $60-120. Full Circle ATL: Supreme < $100. ATL Addictions: Chrome Hearts $80-150. Nike Outlet (Woodstock): Retros $50-90. Tip: Mix vintage with streetwear for timeless fits.</p>
+        </div>
+        <div class="gem">
+            <h3>Cologne Steals</h3>
+            <p>Fragrance Outlet (Woodstock): Creed $40-70. Perfumania: Armani $30-60. Taj Perfumes: Oils $20-50. Walmart (Gresham Rd): Nautica $10-30. Bloomingdales (Lenox): Testers $50-100. Tip: Layer light citrus with woody base for all-day wear.</p>
+        </div>
+        <div class="gem">
+            <h3>Beard Oils</h3>
+            <p>Chattanooga Beard Co.: Smooth $15-20. Black Rebel Beard Co.: Luxurious $20-25. Bevel: Hydrating $15. Honest Amish: Itch relief $10-15. Every Man Jack: Sandalwood $10. Tip: Apply post-shower for best absorption; pair with weekly trims.</p>
+        </div>
+        <div class="gem">
+            <h3>Cheap Barbers</h3>
+            <p>Gino's Classic: Fades $20-30. The Commodore: $25. Trophy Room: $20-35. Vista: $15-25. Eclectic (Midtown): $20-30. Tip: Book mid-week for walk-ins; ask for fade with beard line-up.</p>
+        </div>
+        <div class="gem">
+            <h3>Thrift Stores</h3>
+            <p>Rag-O-Rama: Vintage $10-30. The Lucky Exchange: Designer $15-40. Goodwill (Piedmont): $5-20. Value Village (Southside): $5-15. Lost-N-Found: $5-25. Tip: Shop weekends for new arrivals; mix thrift with new for hybrid looks.</p>
+        </div>
+        <div class="gem">
+            <h3>Fashion Tips & Coaching</h3>
+            <p>2025 Trends: Bold prints & fringe (Range Boutique). Invest in quality (Atlanta stylists). Sustainable wardrobe: Mix vintage & streetwear (Squash Blossom). Personal coaching: Reflect personal style (Lillian Charles). Tip: Layer citrus cologne with woody base for all-day wear.</p>
+        </div>
+    </div>
+
+    <script>
+        const upload = document.getElementById('shoeUpload');
+        const preview = document.getElementById('preview');
+        const neighborhood = document.getElementById('neighborhood');
+        const rateBtn = document.getElementById('rateBtn');
+        const result = document.getElementById('result');
+        const ratingEl = document.getElementById('rating');
+        const feedbackEl = document.getElementById('feedback');
+        const shareBtn = document.getElementById('shareBtn');
+        const premiumBtn = document.querySelector('.premium-btn');
+        const premiumSection = document.getElementById('premium');
+
+        // Premium Unlock with Stripe Redirect
+        premiumBtn.addEventListener('click', function() {
+            const successUrl = encodeURIComponent(window.location.href + '?premium=unlocked');
+            window.location.href = 'https://buy.stripe.com/bJe9ATbEkgfH66F6uaabK00?prefilled_email=example@email.com&success_url=' + successUrl;
+        });
+
+        // Check for premium unlock on load (from Stripe success redirect)
+        if (window.location.search.includes('premium=unlocked')) {
+            premiumSection.style.display = 'block';
+            alert('Welcome to Premium! Enjoy the hidden gems.');
+        }
+
+        upload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    rateBtn.disabled = !neighborhood.value;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        neighborhood.addEventListener('change', function() {
+            rateBtn.disabled = !this.value || !preview.src;
+        });
+
+        function rateShoes() {
+            if (!neighborhood.value || !preview.src) return;
+            
+            const rating = Math.floor(Math.random() * 10) + 1;
+            const hood = neighborhood.value;
+            const feedbacks = {
+                zone1: rating >= 7 ? "Zone 1 fire—Bankhead’s proud!" : "Zone 1 needs more sauce.",
+                zone2: rating >= 7 ? "Zone 2 elite—Midtown owns it!" : "Zone 2 needs heat.",
+                zone3: rating >= 7 ? "Zone 3 luxury—Buckhead vibes!" : "Zone 3 needs bolder.",
+                zone4: rating >= 7 ? "Zone 4 drip—Decatur loves it!" : "Zone 4’s off.",
+                zone5: rating >= 7 ? "Zone 5 heat—Hapeville’s got you!" : "Zone 5 needs shine."
+            };
+            
+            ratingEl.textContent = rating + '/10';
+            feedbackEl.textContent = feedbacks[hood] || 'Unique drip detected!';
+            result.style.display = 'block';
+            shareBtn.href = `https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}&text=My ATL-KICK-SCOUT rating: ${rating}/10 in ${hood.replace('zone', 'Zone ')}! Tag your crew. #ATLKICKSCOUT`;
+        }
+
+        function shareToIG() {
+            window.open(shareBtn.href, '_blank');
+        }
+    </script>
+</body>
+</html>
